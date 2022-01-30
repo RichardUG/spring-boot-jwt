@@ -173,6 +173,8 @@ public class UserController {
 
 Remember to add your both **Github** repos url into the **Ada** input box to deliver correctly your codelab.
 
+## Autor del enunciado de este laboratorio
+[Juan David Ramirez Mendoza](https://github.com/CAPJackie)
 
 ## Autor del resultado de este laboratorio
 [Richard Santiago Urrea Garcia](https://github.com/RichardUG)
