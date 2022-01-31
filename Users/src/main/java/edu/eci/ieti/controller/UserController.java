@@ -33,7 +33,10 @@ public class UserController {
     @PostMapping
     public ResponseEntity<User> create(@RequestBody UserDto userDto ) {
         List<User> users= userService.getAll();
-        String id = users.get(users.size()).getId()+1;
+        String id = "1";
+        if(users.size()>0){
+            id = String.valueOf((Integer.parseInt(users.get(users.size()-1).getId())+1));
+        }
         User user = new User(userDto, LocalDate.now(), id);
         return ResponseEntity.status(HttpStatus.OK).body(userService.create(user));
     }

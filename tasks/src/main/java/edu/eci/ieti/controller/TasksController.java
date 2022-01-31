@@ -34,7 +34,10 @@ public class TasksController {
     @PostMapping
     public ResponseEntity<Tasks> create(@RequestBody TaskDto taskDto ) {
         List<Tasks> tasksList = taskService.getAll();
-        String id = tasksList.get(tasksList.size()).getId()+1;
+        String id="1";
+        if (tasksList.size()>0){
+            id = String.valueOf((Integer.parseInt(tasksList.get(tasksList.size()-1).getId())+1));
+        }
         Tasks tasks = new Tasks(taskDto, LocalDate.now(), id);
         return ResponseEntity.status(HttpStatus.OK).body(taskService.create(tasks));
     }
