@@ -1,37 +1,38 @@
 package edu.eci.ieti.service;
 
 import edu.eci.ieti.data.User;
-import org.springframework.stereotype.Service;
+import edu.eci.ieti.dto.UserDto;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
-@Service
-public class UserServiceHashMap implements UserService{
+
+public class UserServiceHashMap {
     private final HashMap<String, User> userHashMap = new HashMap<>();
 
-    @Override
+  //  @Override
     public User create(User user) {
         return userHashMap.put(user.getId(), user);
     }
 
-    @Override
+   // @Override
     public User findById(String id) {
         return userHashMap.get(id);
     }
 
-    @Override
+   // @Override
     public List<User> getAll() {
         return new ArrayList<User>(userHashMap.values());
     }
 
-    @Override
+   // @Override
     public void deleteById(String id) {
         userHashMap.remove(id);
     }
 
-    @Override
+    //@Override
     public User update(User user, String userId) {
         return userHashMap.put(userId,user);
     }

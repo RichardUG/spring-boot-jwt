@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<User> create(@RequestBody UserDto userDto ) {
+
         List<User> users= userService.getAll();
         String id = "1";
         if(users.size()>0){
@@ -43,8 +45,7 @@ public class UserController {
 
     @PutMapping( "/{id}" )
     public ResponseEntity<User> update( @RequestBody UserDto userDto, @PathVariable String id ) {
-        User user = new User(userDto,userService.findById(id).getCreatedAt(), id);
-        return ResponseEntity.status(HttpStatus.OK).body(userService.update(user,id));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.update(userDto,id));
     }
 
     @DeleteMapping( "/{id}" )
@@ -55,5 +56,11 @@ public class UserController {
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR.ordinal()).body((false));
         }
+    }
+
+    @GetMapping( "/findUsersWithNameOrLastNameLike/{queryparam}" )
+    public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike( @PathVariable String queryparam ) {
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNameOrLastNameLike(queryparam));
+
     }
 }

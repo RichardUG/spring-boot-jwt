@@ -1,13 +1,18 @@
 package edu.eci.ieti.service;
 
 import edu.eci.ieti.data.User;
+import edu.eci.ieti.dto.UserDto;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 public interface UserService {
     User create(User user );
-    User findById( String id );
+    User findById(String id );
     List<User> getAll();
     void deleteById( String id );
-    User update( User user, String userId );
+    User update(UserDto userdto, String userId );
+    List<User> findUsersWithNameOrLastNameLike(String queryText);
+    List<User> findUsersCreatedAfter(Date startDate);
 }
