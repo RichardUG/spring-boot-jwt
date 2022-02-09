@@ -7,10 +7,13 @@ import edu.eci.ieti.data.User;
 import edu.eci.ieti.dto.UserDto;
 import edu.eci.ieti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -61,17 +64,15 @@ public class UserServiceMongoDB implements UserService{
     }
 
     @Override
-    public List<User> findUsersWithNameOrLastNameLike(String queryText) {
-        Criteria criteria= new Criteria();
-        criteria.and("name").is(queryText);
-        criteria.orOperator(new Criteria().and("name").is(queryText), new Criteria().and("lastName").is(queryText));
-        Query query = new Query(criteria);
-
-        return null;
+    public List<User> findUsersWithNaeOrLastNameLike(String queryText) {
+        List<User> users = new ArrayList<>();
+        users.addAll(userRepository.findByName(queryText));
+        users.addAll(userRepository.findByLastName(queryText));
+        return users;
     }
 
     @Override
     public List<User> findUsersCreatedAfter(Date startDate) {
-        return null;
+        return userRepository.findBycreatedAtAfter(startDate) ;
     }
 }

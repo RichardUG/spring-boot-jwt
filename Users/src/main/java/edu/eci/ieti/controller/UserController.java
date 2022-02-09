@@ -3,17 +3,22 @@ package edu.eci.ieti.controller;
 import edu.eci.ieti.data.User;
 import edu.eci.ieti.dto.UserDto;
 import edu.eci.ieti.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 
 @RestController
 @RequestMapping( "/v1/user" )
 public class UserController {
+    @Autowired
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -60,7 +65,12 @@ public class UserController {
 
     @GetMapping( "/findUsersWithNameOrLastNameLike/{queryparam}" )
     public ResponseEntity<List<User>> findUsersWithNameOrLastNameLike( @PathVariable String queryparam ) {
-        return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNameOrLastNameLike(queryparam));
+        return ResponseEntity.status(HttpStatus.OK).body(userService.findUsersWithNaeOrLastNameLike(queryparam));
 
+    }
+    @GetMapping( "/FindByDate/{date}" )
+    public ResponseEntity<List<User>> findUsersCreatedAfter(@PathVariable String date ) throws ParseException {
+        Date date1 =new SimpleDateFormat("yyyy-MM-dd").parse(date);
+        return new ResponseEntity<List<User>>(userService.findUsersCreatedAfter(date1), HttpStatus.OK );
     }
 }

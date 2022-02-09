@@ -13,6 +13,6 @@ public interface UserService {
     List<User> getAll();
     void deleteById( String id );
     User update(UserDto userdto, String userId );
-    List<User> findUsersWithNameOrLastNameLike(String queryText);
+    List<User> findUsersWithNaeOrLastNameLike(String queryText);
     List<User> findUsersCreatedAfter(Date startDate);
 }

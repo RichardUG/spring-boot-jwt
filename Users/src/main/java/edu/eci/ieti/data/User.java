@@ -5,11 +5,13 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
+import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+
 
 @Document(collection = "users")
 public class User {
@@ -19,7 +21,7 @@ public class User {
     @Indexed(unique = true)
     private String email;
     private String lastName;
-    private String createdAt;
+    private LocalDate createdAt;
     @Transient
     DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
 
@@ -30,8 +32,8 @@ public class User {
     public User(UserDto userDto, LocalDate localDate, String id) {
         this.name = userDto.getName();
         this.email = userDto.getEmail();
-        this.lastName = userDto.getEmail();
-        this.createdAt = dateTimeFormatter.format(localDate);
+        this.lastName = userDto.getLastName();
+        this.createdAt = localDate;
         this.id=id;
     }
 
@@ -39,7 +41,7 @@ public class User {
         this.id = id;
     }
 
-    public void setCreatedAt(String createdAt) {
+    public void setCreatedAt(LocalDate createdAt) {
         this.createdAt = createdAt;
     }
     public String getId() {
@@ -70,7 +72,7 @@ public class User {
         this.lastName = lastName;
     }
 
-    public String getCreatedAt() {
+    public LocalDate getCreatedAt() {
         return createdAt;
     }
 
