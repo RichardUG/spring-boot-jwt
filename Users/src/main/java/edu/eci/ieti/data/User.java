@@ -12,6 +12,8 @@ import org.springframework.transaction.annotation.Transactional;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 
@@ -38,6 +40,7 @@ public class User {
         this.createdAt = localDate;
         this.id=id;
         this.passwordHash = BCrypt.hashpw(userDto.getPassword(), BCrypt.gensalt());
+        roles = new ArrayList<>(Collections.singleton( RoleEnum.USER ));
     }
 
     public String getPasswordHash() {
