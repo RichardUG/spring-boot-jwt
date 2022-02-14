@@ -1,5 +1,6 @@
 package edu.eci.ieti.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,10 +10,13 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 
 @EnableWebSecurity
 @EnableGlobalMethodSecurity( securedEnabled = true, jsr250Enabled = true, prePostEnabled = true )
-public class SecurityConfiguration
-        extends WebSecurityConfigurerAdapter
-{
+public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
+    JwtRequestFilter jwtRequestFilter;
+
+    public SecurityConfiguration( @Autowired JwtRequestFilter jwtRequestFilter )    {
+        this.jwtRequestFilter = jwtRequestFilter;
+    }
 
     @Override
     protected void configure( HttpSecurity http )
@@ -22,6 +26,7 @@ public class SecurityConfiguration
                 .authorizeRequests()
                 .antMatchers( HttpMethod.GET, "/v1/user" ).permitAll()
                 .antMatchers( HttpMethod.POST,"/v1/user" ).permitAll()
+                .antMatchers( HttpMethod.POST, "/v1/auth" ).permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS );

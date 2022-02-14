@@ -33,8 +33,8 @@ public class UserServiceMongoDB implements UserService{
 
     @Override
     public User create(User user ){
-        userRepository.save(user);
-        return null;
+
+        return userRepository.save(user);
     }
 
     @Override
@@ -63,8 +63,8 @@ public class UserServiceMongoDB implements UserService{
         if (userdto.getPassword() != null) {
             user.setPasswordHash(BCrypt.hashpw(userdto.getPassword(), BCrypt.gensalt()));
         }
-        userRepository.save(user);
-        return null;
+
+        return userRepository.save(user);
     }
 
     @Override

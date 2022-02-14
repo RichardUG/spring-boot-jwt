@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.security.RolesAllowed;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -53,7 +54,8 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(userService.update(userDto,id));
     }
 
-    @DeleteMapping( "/{id}" )
+    @PostMapping( "/{id}" )
+    @RolesAllowed("ADMIN")
     public ResponseEntity<Boolean> delete( @PathVariable String id ) {
         try{
             userService.deleteById(id);
