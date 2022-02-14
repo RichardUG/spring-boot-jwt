@@ -15,4 +15,5 @@ public interface UserService {
     User update(UserDto userdto, String userId );
     List<User> findUsersWithNaeOrLastNameLike(String queryText);
     List<User> findUsersCreatedAfter(Date startDate);
+    User findByEmail(String queryText);
 }
