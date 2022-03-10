@@ -2,39 +2,36 @@ package edu.eci.ieti.data;
 
 import edu.eci.ieti.dto.TaskDto;
 import edu.eci.ieti.enums.Status;
+import jdk.vm.ci.meta.Local;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
+@Document(collection = "tasks")
 public class Tasks {
 
+    @Id
     private String id;
     private String name;
     private String description;
     private Status status;
     private String assignedTo;
     private String dueDate;
-    private String created;
-    DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+    private LocalDate created;
+
+    public Tasks(){}
 
     public Tasks(TaskDto taskDto, LocalDate localDate, String id) {
-        this.id=id;
+        this.id = id;
         this.name = taskDto.getName();
         this.description = taskDto.getDescription();
         this.status = taskDto.getStatus();
         this.assignedTo = taskDto.getAssignedTo();
         this.dueDate = taskDto.getDueDate();
-        this.created = dateTimeFormatter.format(localDate);
-    }
-
-    public Tasks(TaskDto taskDto, String created, String id) {
-        this.id=id;
-        this.name = taskDto.getName();
-        this.description = taskDto.getDescription();
-        this.status = taskDto.getStatus();
-        this.assignedTo = taskDto.getAssignedTo();
-        this.dueDate = taskDto.getDueDate();
-        this.created = created;
+        this.created = localDate;
     }
 
     public String getId() {
@@ -85,11 +82,11 @@ public class Tasks {
         this.dueDate = dueDate;
     }
 
-    public String getCreated() {
+    public LocalDate getCreated() {
         return created;
     }
 
-    public void setCreated(String created) {
+    public void setCreated(LocalDate created) {
         this.created = created;
     }
 

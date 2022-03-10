@@ -35,6 +35,7 @@ public class AuthController
     @PostMapping
     public TokenDto login( @RequestBody LoginDto loginDto )
     {
+        System.out.println(loginDto.toString());
         // TODO: Implement findByEmail method
         User user = userService.findByEmail( loginDto.email );
         if ( BCrypt.checkpw( loginDto.password, user.getPasswordHash() ) )
@@ -64,6 +65,7 @@ public class AuthController
         Calendar expirationDate = Calendar.getInstance();
         expirationDate.add( Calendar.MINUTE, TOKEN_DURATION_MINUTES );
         String token = generateToken( user, expirationDate.getTime() );
+        System.out.println(new TokenDto( token, expirationDate.getTime() ));
         return new TokenDto( token, expirationDate.getTime() );
     }
 }

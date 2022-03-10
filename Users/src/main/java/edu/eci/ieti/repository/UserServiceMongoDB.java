@@ -1,17 +1,10 @@
 package edu.eci.ieti.repository;
 
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.internal.MongoDatabaseImpl;
 import edu.eci.ieti.data.User;
 import edu.eci.ieti.dto.UserDto;
 import edu.eci.ieti.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.security.crypto.bcrypt.BCrypt;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
